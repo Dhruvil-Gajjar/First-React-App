@@ -36,7 +36,7 @@ export default function TextForm(props) {
     // }
     // onFocus={handleOnFocus}
 
-    const [text, setText] = useState('Enter text here...');
+    const [text, setText] = useState('');
 
     return (
         <>
@@ -50,19 +50,19 @@ export default function TextForm(props) {
                     </textarea>
                 </div>
 
-                <button className="btn btn-primary mx-2" onClick={handleUpClick}> Convert to uppecase </button>
-                <button className="btn btn-primary mx-3" onClick={handleLoClick}> Convert to lowercase </button>
-                <button className="btn btn-primary mx-3" onClick={swapCaseClick}> Convert to invert case </button>
+                <button disabled={text.length === 0} className="btn btn-primary mx-2 my-1" onClick={handleUpClick}> Convert to uppecase </button>
+                <button disabled={text.length === 0} className="btn btn-primary mx-2 my-1" onClick={handleLoClick}> Convert to lowercase </button>
+                <button disabled={text.length === 0} className="btn btn-primary mx-2 my-1" onClick={swapCaseClick}> Convert to invert case </button>
             </div>
 
             <div className="container my-5" style={{color: props.mode === 'dark' ? 'white':'black'}} >
                 <h1> Your text summary </h1>
 
-                <p> {text.split(" ").length} word(s), {text.length} character(s)</p>
-                <p> { 0.008 * text.split(" ").length } Minutes to read </p>
+                <p> {text.split(" ").filter((element)=>{return element.length !== 0}).length} word(s), {text.length} character(s)</p>
+                <p> { 0.008 * text.split(" ").filter((element)=>{return element.length !== 0}).length } Minutes to read </p>
 
                 <h2>Preview</h2>
-                <p>{text === "Enter text here..." ? 'Enter some text in above textBox to preview here.': text}</p>
+                <p>{text === "" ? 'Enter some text in above textBox to preview here.': text}</p>
             </div>
         </>
     )
